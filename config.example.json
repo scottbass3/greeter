@@ -1,0 +1,16 @@
+{
+  "wallpaper": "/usr/share/backgrounds/scottbass3-greeter.png",
+  "font": "JetBrainsMono Nerd Font",
+  "locale": "fr_FR",
+  "clock24h": true,
+  "hiddenUsers": [],
+  "defaultSession": "wayland/hyprland",
+  "userThemes": true,
+  "colors": {
+    "primary": "#D0BCFF",
+    "onPrimary": "#381E72",
+    "surface": "#1C1B1F",
+    "secondaryContainer": "#4A4458",
+    "error": "#F2B8B5"
+  }
+}
