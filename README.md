@@ -66,6 +66,18 @@ input or anything else.
 Avatars are read from `/var/lib/AccountsService/icons/<user>`; users without
 one get their initials.
 
+### Users' own themes
+
+scottbass3-shell can copy a user's wallpaper, colors and avatar to
+`/var/lib/scottbass3-greeter/users/<user>/` (Settings → Appearance → Login
+screen), and the greeter shows them while that user is selected. The
+directory is shared like `/tmp`; the greeter only uses an entry owned by the
+user it is named after. Other shells can do the same with a `theme.json`:
+
+```json
+{ "wallpaper": "wallpaper.jpg", "avatar": "face", "colors": { "primary": "#D0BCFF" } }
+```
+
 ## Development
 
 Run it from a checkout without greetd, with greetd's `fakegreet` (user `user`,
