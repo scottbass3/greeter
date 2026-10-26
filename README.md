@@ -17,9 +17,31 @@ wallpaper with the clock, then a blurred login prompt on a click or a key.
 
 ## Install
 
-Arch Linux (AUR): `scottbass3-greeter-git`.
+### NixOS
 
-Then point greetd at it in `/etc/greetd/config.toml`:
+The flake's module sets greetd up:
+
+```nix
+{
+  inputs.scottbass3-greeter.url = "github:scottbass3/greeter";
+
+  # in the system's modules:
+  imports = [ inputs.scottbass3-greeter.nixosModules.default ];
+  services.scottbass3-greeter = {
+    enable = true;
+    settings.wallpaper = "/etc/scottbass3-greeter/wallpaper.png";  # config.json keys, see below
+    extraHyprlandConfig = ''hl.monitor({ output = "", mode = "preferred" })'';  # optional
+  };
+}
+```
+
+It also follows `services.xserver.xkb` for the keyboard, lists the system's
+sessions and installs the JetBrains Mono Nerd Font.
+
+### Arch Linux
+
+AUR: `scottbass3-greeter-git`. Then point greetd at it in
+`/etc/greetd/config.toml`:
 
 ```toml
 [default_session]
@@ -54,6 +76,7 @@ console with Ctrl+Alt+F2, log in there and restore your previous `command`.
 | `clock24h` | `true` | |
 | `hiddenUsers` | `[]` | user names not to list |
 | `defaultSession` | the first one | e.g. `wayland/hyprland` (file name of the `.desktop`) |
+| `sessionDirs` | `/usr/share/wayland-sessions`, `/usr/share/xsessions` | where to find sessions; X11 ones have `xsessions` in their path |
 | `userThemes` | `true` | use the wallpaper and colors synced by each user's shell |
 | `userThemesDir` | `/var/lib/scottbass3-greeter/users` | |
 | `colors` | the shell's dark theme | Material 3 roles: `primary`, `onPrimary`, `surface`, `secondaryContainer`, `error`… |
