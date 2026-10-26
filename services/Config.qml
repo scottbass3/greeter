@@ -20,6 +20,8 @@ QtObject {
     readonly property bool   clock24h:       _data.clock24h ?? true
     readonly property var    hiddenUsers:    _data.hiddenUsers ?? []
     readonly property string defaultSession: _data.defaultSession ?? ""
+    // Directories of session .desktop files; X11 ones have "xsessions" in their path.
+    readonly property var    sessionDirs:    _data.sessionDirs ?? ["/usr/share/wayland-sessions", "/usr/share/xsessions"]
     // Wallpaper and colors synced by each user's shell (see README).
     readonly property bool   userThemes:     _data.userThemes ?? true
     readonly property string userThemesDir:  _data.userThemesDir ?? "/var/lib/scottbass3-greeter/users"

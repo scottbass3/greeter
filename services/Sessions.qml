@@ -1,9 +1,11 @@
 pragma Singleton
 import QtQuick
 import Quickshell.Io
+import "."
 
-// Desktop sessions from /usr/share/wayland-sessions and /usr/share/xsessions.
-// X11 sessions are offered only when startx (xorg-xinit) can start them.
+// Desktop sessions from Config.sessionDirs (/usr/share/wayland-sessions and
+// /usr/share/xsessions by default). X11 sessions are offered only when startx
+// (xorg-xinit) can start them.
 QtObject {
     id: root
 
@@ -77,8 +79,8 @@ QtObject {
         running: true
         command: ["sh", "-c", `
             startx=0; command -v startx >/dev/null 2>&1 && startx=1
-            for dir in /usr/share/wayland-sessions /usr/share/xsessions; do
-                x11=0; [ "$dir" = /usr/share/xsessions ] && x11=1
+            for dir in "$@"; do
+                x11=0; case "$dir" in *xsessions*) x11=1 ;; esac
                 for f in "$dir"/*.desktop; do
                     [ -f "$f" ] || continue
                     try=$(sed -n 's/^TryExec=//p' "$f" | head -n1)
@@ -86,7 +88,7 @@ QtObject {
                     printf '\\n@@file %s %s %s %s\\n' "$f" "$x11" "$ok" "$startx"
                     cat "$f"
                 done
-            done`]
+            done`, "sh"].concat(Config.sessionDirs)
         stdout: StdioCollector { onStreamFinished: root._parse(text) }
     }
 }
