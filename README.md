@@ -72,7 +72,7 @@ console with Ctrl+Alt+F2, log in there and restore your previous `command`.
 | --- | --- | --- |
 | `wallpaper` | none (a gradient) | image readable by the `greeter` user |
 | `font` | `JetBrainsMono Nerd Font` | needs Nerd Font icons |
-| `locale` | `LANG` from `/etc/locale.conf` | for the date, e.g. `fr_FR` |
+| `locale` | `LC_TIME`, else `LANG`, from `/etc/locale.conf` | for the date, e.g. `fr_FR` |
 | `clock24h` | `true` | |
 | `hiddenUsers` | `[]` | user names not to list |
 | `defaultSession` | the first one | e.g. `wayland/hyprland` (file name of the `.desktop`) |

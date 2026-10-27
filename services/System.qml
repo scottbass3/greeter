@@ -2,8 +2,8 @@ pragma Singleton
 import QtQuick
 import Quickshell.Io
 
-// System facts the greeter needs: the locale (greetd starts it with a bare
-// environment) and the range of regular users' UIDs.
+// System facts the greeter needs: the locale for dates (greetd starts it with
+// a bare environment) and the range of regular users' UIDs.
 QtObject {
     id: root
 
@@ -15,8 +15,9 @@ QtObject {
         path: "/etc/locale.conf"
         blockLoading: true
         printErrors: false
+        // Dates follow LC_TIME when set, like in the user's session.
         onLoaded: {
-            const m = text().match(/^LANG=["']?([^"'\s.]+)/m)
+            const m = text().match(/^LC_TIME=["']?([^"'\s.]+)/m) ?? text().match(/^LANG=["']?([^"'\s.]+)/m)
             if (m) root.locale = m[1]
         }
     }

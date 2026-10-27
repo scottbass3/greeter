@@ -167,7 +167,7 @@ PanelWindow {
             font.weight: Font.Bold
         }
         Text {
-            text: win.now.toLocaleDateString(Theme.locale, "dddd d MMMM yyyy")
+            text: win.now.toLocaleDateString(Theme.locale, "dddd, d MMMM yyyy")
             color: "white"
             opacity: 0.85
             font.family: Theme.fontFamily
